@@ -1,0 +1,10 @@
+{
+  "custom": {
+    "sounds": [
+      {
+        "name": "royalscustomdiscs:custom",
+        "stream": true
+      }
+    ]
+  }
+}
