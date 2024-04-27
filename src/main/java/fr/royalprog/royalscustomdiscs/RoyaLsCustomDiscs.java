@@ -1,10 +1,15 @@
 package fr.royalprog.royalscustomdiscs;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.logging.LogUtils;
+import fr.royalprog.royalscustomdiscs.commands.ReloadSoundManager;
 import fr.royalprog.royalscustomdiscs.item.ModItems;
 import fr.royalprog.royalscustomdiscs.sound.ModSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -15,6 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -40,7 +46,6 @@ public class RoyaLsCustomDiscs
     public static final String MODID = "royalscustomdiscs";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-
     public RoyaLsCustomDiscs()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -58,9 +63,12 @@ public class RoyaLsCustomDiscs
         MinecraftForge.EVENT_BUS.register(this);
 
 
+
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         modEventBus.addListener(this::addCreative);
+
+        // Minecraft.getInstance().getSoundManager().reload();
     }
     private void commonSetup(final FMLCommonSetupEvent event)
     {
@@ -78,7 +86,7 @@ public class RoyaLsCustomDiscs
     public void onServerStarting(ServerStartingEvent event)
     {
         // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+       // LOGGER.info("HELLO from server starting");
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -86,8 +94,8 @@ public class RoyaLsCustomDiscs
     public static class ClientModEvents
     {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            LOGGER.debug(Minecraft.getInstance().gameDirectory.getAbsolutePath());
 
         }
     }
