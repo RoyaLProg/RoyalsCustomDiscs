@@ -5,6 +5,7 @@ import com.mojang.logging.LogUtils;
 import fr.royalprog.royalscustomdiscs.commands.ReloadSoundManager;
 import fr.royalprog.royalscustomdiscs.item.ModItems;
 import fr.royalprog.royalscustomdiscs.sound.ModSounds;
+import fr.royalprog.royalscustomdiscs.utils.FileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -96,7 +97,7 @@ public class RoyaLsCustomDiscs
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             LOGGER.debug(Minecraft.getInstance().gameDirectory.getAbsolutePath());
-
+            FileManager fm = new FileManager();
         }
     }
 }
